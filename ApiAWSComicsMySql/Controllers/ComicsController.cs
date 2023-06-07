@@ -9,23 +9,32 @@ namespace ApiAWSComicsMySql.Controllers
     [ApiController]
     public class ComicsController : ControllerBase
     {
-
         private RepositoryComics repo;
+
+
+
         public ComicsController(RepositoryComics repo)
         {
             this.repo = repo;
-
         }
+
+
+
         [HttpGet]
         public async Task<ActionResult<List<Comic>>> GetComicList()
         {
-            return await this.repo.GetComicAsync();
+            return await this.repo.GetComicsAsync();
         }
-        [HttpGet("id")]
+
+
+
+        [HttpGet("{id}")]
         public async Task<ActionResult<Comic>> Find(int id)
         {
             return await this.repo.FindComicAsync(id);
         }
+
+
 
 
         [HttpPost]
@@ -49,8 +58,13 @@ namespace ApiAWSComicsMySql.Controllers
         [HttpDelete]
         public async Task<ActionResult> Delete(int id)
         {
-            await this.repo.DeleteComic(id);
+            await this.repo.DeleteComicAsync(id);
             return Ok();
         }
+
+
+
     }
+
+   
 }
