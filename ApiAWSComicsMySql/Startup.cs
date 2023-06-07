@@ -1,6 +1,7 @@
 using ApiAWSComicsMySql.Data;
 using ApiAWSComicsMySql.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace ApiAWSComicsMySql;
 
@@ -29,6 +30,23 @@ public class Startup
             options.AddPolicy("AllowOrigin", x => x.AllowAnyOrigin());
         });
 
+    
+
+
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "Api AWS COMICS ",
+                Version = "v1"
+                ,
+                Description = "Api Comics AWS"
+
+
+
+            });
+        });
+
         services.AddControllers();
     }
 
@@ -40,6 +58,16 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
         app.UseCors(options => options.AllowAnyOrigin());
+
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("swagger/v1/swagger.json"
+                , "Api AWS COMICS v1");
+            options.RoutePrefix = "";
+        });
+
+
 
         app.UseHttpsRedirection();
 
